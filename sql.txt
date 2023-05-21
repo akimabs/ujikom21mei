@@ -1,0 +1,50 @@
+CREATE TABLE tbl_user (
+    id_user integer PRIMARY KEY,
+    username varchar(18) UNIQUE,
+    password varchar(10)
+);
+
+CREATE TABLE tbl_pengaduan (
+    id_pengaduan integer PRIMARY KEY,
+    jenis_pengaduan varchar(15),
+    tgl_pengaduan DATE,
+    nm_pengadu varchar(18),
+    jenis_kelamin varchar(8),
+    no_ktp integer,
+    alamat_pengadu varchar(100),
+    pengaduan varchar(10),
+    username varchar(18),
+    FOREIGN KEY (username) REFERENCES tbl_user(username)
+);
+
+CREATE TABLE tbl_kategori (
+    id_kategori integer PRIMARY KEY,
+    jenis_pengaduan varchar(18)
+);
+
+ALTER TABLE tbl_kategori
+ADD CONSTRAINT uk_kategori_jenis_pengaduan UNIQUE (jenis_pengaduan);
+
+CREATE TABLE tbl_pengaduan (
+  id_pengaduan SERIAL PRIMARY KEY,
+  jenis_pengaduan varchar(15),
+  tgl_pengaduan DATE,
+  nm_pengadu varchar(18),
+  jenis_kelamin varchar(8),
+  no_ktp integer,
+  alamat_pengadu varchar(100),
+  pengaduan varchar(10),
+  username varchar(18),
+  CONSTRAINT fk_pengaduan_kategori FOREIGN KEY (jenis_pengaduan)
+    REFERENCES tbl_kategori (jenis_pengaduan)
+    ON UPDATE CASCADE
+    ON DELETE CASCADE,
+  CONSTRAINT fk_pengaduan_user FOREIGN KEY (username)
+    REFERENCES tbl_user (username)
+    ON UPDATE CASCADE
+    ON DELETE CASCADE
+);
+
+GRANT SELECT, INSERT, UPDATE, DELETE ON tbl_pengaduan TO akimabs;
+GRANT SELECT, INSERT, UPDATE, DELETE ON tbl_user TO akimabs;
+GRANT SELECT, INSERT, UPDATE, DELETE ON tbl_kategori TO akimabs;

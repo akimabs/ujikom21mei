@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Dashboard</title>
+    <!-- Include Bootstrap CSS -->
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+    />
+  </head>
+  <body>
+    <div class="container-fluid mt-5">
+      <h2>Dashboard</h2>
+      <div class="mb-3 mt-3">
+        <a href="/form-pengaduan" class="btn btn-success btn-lg"
+          >Add Pengaduan</a
+        >
+      </div>
+      <% if (pengaduanData.length === 0) { %>
+      <p>No records available.</p>
+      <% } else { %>
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th>Jenis Pengaduan</th>
+            <th>Tanggal Pengaduan</th>
+            <th>Nama Lengkap</th>
+            <th>Jenis Kelamin</th>
+            <th>No. KTP</th>
+            <th>Alamat</th>
+            <th>Pengaduan</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% pengaduanData.forEach(pengaduan => { %>
+          <tr>
+            <td><%= pengaduan.jenis_pengaduan %></td>
+            <td><%= pengaduan.tgl_pengaduan %></td>
+            <td><%= pengaduan.nm_pengadu %></td>
+            <td><%= pengaduan.jenis_kelamin %></td>
+            <td><%= pengaduan.no_ktp %></td>
+            <td><%= pengaduan.alamat_pengadu %></td>
+            <td><%= pengaduan.pengaduan %></td>
+            <td>
+              <div class="d-flex justify-content-between">
+                <form
+                  action="/edit-pengaduan/<%= pengaduan.id_pengaduan %>"
+                  method="GET"
+                >
+                  <input
+                    type="hidden"
+                    name="pengaduanData"
+                    value="<%= JSON.stringify(pengaduan) %>"
+                  />
+                  <button class="btn btn-primary mr-2">Edit</button>
+                </form>
+                <form
+                  action="/delete-pengaduan/<%= pengaduan.id_pengaduan %>"
+                  method="POST"
+                >
+                  <button class="btn btn-danger">Delete</button>
+                </form>
+              </div>
+            </td>
+          </tr>
+          <% }) %>
+        </tbody>
+      </table>
+      <% } %>
+    </div>
+  </body>
+</html>

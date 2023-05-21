@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Form Pengaduan</title>
+    <!-- Include Bootstrap CSS -->
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+    />
+  </head>
+  <body>
+    <div class="container mt-5">
+      <h2>Form Pengaduan</h2>
+      <form action="/submit-pengaduan" method="POST">
+        <div class="form-group">
+          <label for="jenisPengaduan">Jenis Pengaduan</label>
+          <select
+            class="form-control"
+            id="jenisPengaduan"
+            name="jenisPengaduan"
+          >
+            <!-- Populate the options dynamically from tbl_kategori -->
+            <% kategoriData.forEach(kategori => { %>
+            <option value="<%= kategori.jenis_pengaduan %>">
+              <%= kategori.jenis_pengaduan %>
+            </option>
+            <% }) %>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="tanggalPengaduan">Tanggal Pengaduan</label>
+          <input
+            type="date"
+            class="form-control"
+            id="tanggalPengaduan"
+            name="tanggalPengaduan"
+            required
+          />
+        </div>
+        <div class="form-group">
+          <label for="namaLengkap">Nama Lengkap</label>
+          <input
+            type="text"
+            class="form-control"
+            id="namaLengkap"
+            name="namaLengkap"
+            required
+          />
+        </div>
+        <div class="form-group">
+          <label for="jenisKelamin">Jenis Kelamin</label>
+          <select class="form-control" id="jenisKelamin" name="jenisKelamin">
+            <option value="Laki-Laki">Laki-Laki</option>
+            <option value="Perempuan">Perempuan</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="noKtp">No. KTP</label>
+          <input
+            type="text"
+            class="form-control"
+            id="noKtp"
+            name="noKtp"
+            required
+          />
+        </div>
+        <div class="form-group">
+          <label for="alamat">Alamat</label>
+          <textarea
+            class="form-control"
+            id="alamat"
+            name="alamat"
+            rows="3"
+            required
+          ></textarea>
+        </div>
+        <div class="form-group">
+          <label for="pengaduan">Pengaduan</label>
+          <textarea
+            type="text"
+            class="form-control"
+            id="pengaduan"
+            name="pengaduan"
+            required
+          >
+          </textarea>
+        </div>
+        <button type="submit" class="btn btn-primary">Submit</button>
+      </form>
+    </div>
+  </body>
+</html>
